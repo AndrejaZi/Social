@@ -1,25 +1,61 @@
 <?php
-if(isset($_POST['submit'])){
-    $name = $_POST['name']; //name
-    $name = strip_tags($name); //removing special chars
-    $name = ucfirst(strtolower($name)); //seting name to be first letter capital
 
-    $email = $_POST['email']; //email
-    $email = strip_tags($email);
-    $email = ucfirst(strtolower($email));
+$con = mysqli_connect("localhost", "root", "", "testno2");
+if(mysqli_connect_errno()){
+    echo "Oops. An error has occured: " . mysqli_connect_errno();
+}else{
+    if(isset($_POST['submit'])){
 
-    $emailVerify = $_POST['email2']; //For email verification
-    $emailVerify = strip_tags($emailVerify);
-    $emailVerify = ucfirst(strtolower($emailVerify));
 
-    $pass = $_POST['pass']; //password
-
-    $passVerify = $_POST['pass2']; //For password verification
-
-    $date = date("d-m-yy"); // Current date
+        //name------------------------------------------
+        $name = $_POST['name']; 
+        $name = strip_tags($name); //removing special chars
+        $name = ucfirst(strtolower($name)); //seting name to be first letter capital
     
+        //email-----------------------------------------
+        $email = $_POST['email']; //email
+        $email = strip_tags($email);
+        $email = ucfirst(strtolower($email));
+    
+        //For email verification----------------------------
+        $emailVerify = $_POST['email2'];
+        $emailVerify = strip_tags($emailVerify);
+        $emailVerify = ucfirst(strtolower($emailVerify));
+    
+        //password--------------------------------------
+        $pass = $_POST['pass']; 
+    
+        //For password verification---------------------
+        $passVerify = $_POST['pass2']; 
+    
+        $date = date("d-m-yy"); // Current date
+    
+        //Email verification----------------------------
+        if(filter_var($email, FILTER_VALIDATE_EMAIL) && filter_var($emailVerify, FILTER_VALIDATE_EMAIL)){
+            if($email == $emailVerify){
 
-}
+                //Checking if email is in use
+                $emailCheck = mysqli_query($con, "SELECT * FROM User where email = '$email' ");
+                $numberOfRows = mysqli_num_rows($emailCheck);
+                if($numberOfRows > 0){
+                    echo "Email is in use, try another";
+                }else{
+                    echo "Email is available";
+                }
+                
+
+            }else{
+                echo "nisu ist emjlovi";   
+            }
+        }else{
+            echo "nije validno";
+        }
+
+
+    }//end of isset for submit
+}//end of 'if' check for no errors in connection
+
+
     
 ?>
 
