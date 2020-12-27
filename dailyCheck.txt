@@ -1,0 +1,2 @@
+27.12.2020.
+Probaj da se zakacis na bazu sa zivanovic.org, da bi svi mogli da koriste app preko git-a
