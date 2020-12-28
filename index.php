@@ -87,7 +87,12 @@ if(mysqli_connect_errno()){
     <div class="container">
         <h3>Marker</h3>
         <p>Enter sandman</p>
+<<<<<<< HEAD
         <p>Exit light</p>
+=======
+        <p>Enter night</p> 
+        <!-- Dont change! -->
+>>>>>>> 2ee0027e95e5011273fc0280481122667c47f85e
     </div>
 </body>
 </html>
