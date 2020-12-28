@@ -87,6 +87,7 @@ if(mysqli_connect_errno()){
     <div class="container">
         <h3>Marker</h3>
         <p>Enter sandman</p>
+        <p>Exit light</p>
     </div>
 </body>
 </html>
