@@ -83,5 +83,10 @@ if(mysqli_connect_errno()){
         <br>
         <input type="submit" name="submit" value="Registruj se">
     </form>
+    
+    <div class="container">
+        <h3>Marker</h3>
+        <p>Enter sandman</p>
+    </div>
 </body>
 </html>
