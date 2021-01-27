@@ -1,62 +1,22 @@
 <?php
 
-$con = mysqli_connect("localhost", "root", "", "testno2");
-if(mysqli_connect_errno()){
-    echo "Oops. An error has occured: " . mysqli_connect_errno();
-}else{
-    if(isset($_POST['submit'])){
+    $test = false;
+    $test2 = false;
 
+    if(filter_has_var(INPUT_POST, 'submit')){
+        $name  = htmlentities($_POST['fName']);
+        $lName = htmlentities ($_POST['lName']);
+        $email = htmlentities($_POST['email']);
+        $chechEmail = htmlentities($_POST['emailCheck']);
 
-        //name------------------------------------------
-        $name = $_POST['name']; 
-        $name = strip_tags($name); //removing special chars
-        $name = ucfirst(strtolower($name)); //seting name to be first letter capital
-    
-        //email-----------------------------------------
-        $email = $_POST['email']; //email
-        $email = strip_tags($email);
-        $email = ucfirst(strtolower($email));
-    
-        //For email verification----------------------------
-        $emailVerify = $_POST['email2'];
-        $emailVerify = strip_tags($emailVerify);
-        $emailVerify = ucfirst(strtolower($emailVerify));
-    
-        //password--------------------------------------
-        $pass = $_POST['pass']; 
-    
-        //For password verification---------------------
-        $passVerify = $_POST['pass2']; 
-    
-        $date = date("d-m-yy"); // Current date
-    
-        //Email verification----------------------------
-        if(filter_var($email, FILTER_VALIDATE_EMAIL) && filter_var($emailVerify, FILTER_VALIDATE_EMAIL)){
-            if($email == $emailVerify){
-
-                //Checking if email is in use
-                $emailCheck = mysqli_query($con, "SELECT * FROM User where email = '$email' ");
-                $numberOfRows = mysqli_num_rows($emailCheck);
-                if($numberOfRows > 0){
-                    echo "Email is in use, try another";
-                }else{
-                    echo "Email is available";
-                }
-                
-
-            }else{
-                echo "nisu ist emjlovi";   
-            }
+        if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+            $test = true;
         }else{
-            echo "nije validno";
+            $test2 = true;
         }
+    }
 
-
-    }//end of isset for submit
-}//end of 'if' check for no errors in connection
-
-
-    
+   
 ?>
 
 
@@ -65,30 +25,34 @@ if(mysqli_connect_errno()){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Ucenjeeee</title>
 </head>
 <body>
-    
-    <form action="index.php" method="POST">
-        <input type="text" name="name" placeholder="Name">
-        <br>
-        <input type="text" name="email" placeholder="Email">
-        <br>
-        <input type="text" name="email2" placeholder="Verify Email">
-        <br>
-        <input type="password" name="pass" placeholder="Password">
-        <br>
-        <input type="password" name="pass2" placeholder="Verify Password">
-        
-        <br>
-        <input type="submit" name="submit" value="Registruj se">
-    </form>
-    
     <div class="container">
-        <h3>Marker</h3>
-        <p>Enter sandman</p>
-        <p>Enter night</p> 
-        <!-- Dont change! -->
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+        <input type="text" class="input inputFname" placeholder = "Enter name" name="fName">
+        <input type="text" class="input inputLname" placeholder = "Enter name" name="lName">
+        <input type="text" class="input email" placeholder="Enter email" name="email">
+        <input type="text" class="input email" placeholder="Enter email again" name="emailCheck">
+        <input type="submit" class="btn btnSubmit" name="submit">
+        </form>
+        <?php if($test) : ?>
+            <div class="userNotification">
+                 <div class="notification">
+                    <p id="success">Success!</p>     
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if($test2) : ?>
+            <div class="userNotification">
+                 <div class="notification">
+                    <p id="fail">Please try again!</p>     
+                </div>
+            </div>
+        <?php endif; ?>
+        
     </div>
 </body>
 </html>
