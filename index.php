@@ -31,10 +31,10 @@
 <body>
     <div class="container">
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-        <input type="text" class="input inputFname" placeholder = "Enter name" name="fName">
-        <input type="text" class="input inputLname" placeholder = "Enter name" name="lName">
-        <input type="text" class="input email" placeholder="Enter email" name="email">
-        <input type="text" class="input email" placeholder="Enter email again" name="emailCheck">
+        <input type="text" class="input inputFname" placeholder = "Enter name" name="fName" value="<?php echo isset($_POST['fName']) ? $name : ''; ?>">
+        <input type="text" class="input inputLname" placeholder = "Enter name" name="lName" value="<?php echo isset($_POST['lName']) ? $lName : ''; ?>">
+        <input type="text" class="input email" placeholder="Enter email" name="email" value="<?php echo isset($_POST['lName']) ? $email : ''; ?>">
+        <input type="text" class="input email" placeholder="Enter email again" name="emailCheck" value="<?php echo isset($_POST['lName']) ? $chechEmail  : ''; ?>">
         <input type="submit" class="btn btnSubmit" name="submit">
         </form>
         <?php if($test) : ?>
