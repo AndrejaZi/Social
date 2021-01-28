@@ -53,6 +53,25 @@
             </div>
         <?php endif; ?>
         
+
+        <!--######## Next practise ########-->
+        <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST">
+            <input type="text" name="testOne" onkeyup="showSuggestion(this.value)">
+            <h4>Predlog: <span id="suggest"></span></h4>
+        </form>
     </div>
+
+    <script>
+        let x;
+            function showSuggestion(value){
+                if(value.length == 0){
+                    document.getElementById('suggest').innerHTML = '';
+                }else{
+                    //ajax request
+                    
+                }
+            }
+        //console.log(x);
+    </script>
 </body>
 </html>
