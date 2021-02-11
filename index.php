@@ -37,14 +37,34 @@
                 $numOfRows = mysqli_num_rows($checkEmail);
 
                 if($numOfRows > 0){
-                    echo "Email postoji";
+                    echo "Email postoji u bazi";
                 }else{
-                    echo "Email validan za bazu";
+                    //Email is ok
                 }
-            }
+            }   
+
         }else{
-            echo "Email not this"; //Yo what is this shit???
+            echo "Email nije vlidnog formata"; //Yo what is this shit???
         }
+
+        if($pass != $passVerify){
+            echo "Your password do not match";
+        }
+
+        if(strlen($fName) > 50 || strlen($fName) <= 1){
+            echo "Your name must be between 2 and 50 characters";
+        }
+        if(strlen($lName) > 50 || strlen($lName) <= 1){
+            echo "Your last name must be between 2 and 50 characters";
+        }
+
+        if(preg_match("/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,50}$/", $pass)){
+            
+        }else{
+            echo "Please use at least one number, at least one letter and '!@#$%' and make sure your password is longer than 8 characters";
+        }
+        
+
         
     }
 ?>
