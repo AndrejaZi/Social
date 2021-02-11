@@ -43,7 +43,7 @@
                 }
             }
         }else{
-            echo "Email not same"; //Yo what is this shit???
+            echo "Email not this"; //Yo what is this shit???
         }
         
     }
