@@ -1,5 +1,5 @@
 <?php
-
+    session_start();
 
     $con = mysqli_connect("localhost", "root", "", "test");
 
@@ -7,25 +7,29 @@
         $fName = htmlentities($_POST['fName']);
         $fName = str_replace(" ", "", $fName);
         $fName = ucfirst(strtolower($fName)); 
+        $_SESSION['reg_fName'] = $fName;
 
         $lName = htmlentities ($_POST['lName']);
         $lName = str_replace(" ", "", $lName);
         $lName = ucfirst(strtolower($lName)); 
-
+        $_SESSION['reg_lName'] = $lName;
+        
         $email = htmlentities($_POST['email']);
         $email = str_replace(" ", "", $email);
         $email = ucfirst(strtolower($email)); 
+        $_SESSION['reg_email'] = $email;
 
         $chechEmail = htmlentities($_POST['emailCheck']);
         $chechEmail = str_replace(" ", "", $chechEmail);
         $chechEmail = ucfirst(strtolower($chechEmail));
+        $_SESSION['reg_checkEmail'] = $chechEmail;
 
         $pass = strip_tags($_POST['pass']);
-
         $passVerify = strip_tags($_POST['passVerify']);
-
         $date = date("d-m-Y");
         //echo $fName . " " . $lName . " " . $email . " " . $chechEmail . " " . $pass . " " . $passVerify . " " . $date;
+
+        $errorArray = array();
 
         if($email == $chechEmail){
             if(filter_var($email, FILTER_VALIDATE_EMAIL)){
@@ -37,35 +41,37 @@
                 $numOfRows = mysqli_num_rows($checkEmail);
 
                 if($numOfRows > 0){
-                    echo "Email postoji u bazi";
+                    array_push($errorArray, "Email postoji u bazi </br>"); 
                 }else{
                     //Email is ok
                 }
             }   
 
         }else{
-            echo "Email nije vlidnog formata"; //Yo what is this shit???
+            array_push($errorArray, "Email nije vlidnog formata </br>");
         }
 
         if($pass != $passVerify){
-            echo "Your password do not match";
+            array_push($errorArray,"Lozinke se ne podudaraju </br>" );
         }
 
         if(strlen($fName) > 50 || strlen($fName) <= 1){
-            echo "Your name must be between 2 and 50 characters";
+            array_push($errorArray, "Vase ime mora bit izmedju 2 i 50 karaktera </br>");
         }
         if(strlen($lName) > 50 || strlen($lName) <= 1){
-            echo "Your last name must be between 2 and 50 characters";
+            array_push($errorArray, "Vase prezime mora bit izmedju 2 i 50 karaktera </br>");
         }
 
-        if(preg_match("/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,50}$/", $pass)){
+        //Ovo sto je cudno proverava da li se lozinka slaze sa nekim standardom, tj da li ima slovo, broj i neki od znakova, takodje gleda da li je manje od 8 ili vise od 50 karakatera
+        if(preg_match("/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{8,50}$/", $pass)){
             
         }else{
-            echo "Please use at least one number, at least one letter and '!@#$%' and make sure your password is longer than 8 characters";
+            array_push($errorArray, "Lozinka mora sadrzati bar jedno slovo, broj i mora imati bar 8 karaktera </br>");
         }
         
 
-        
+        //echo $_SESSION["reg_fName"] . " " . $_SESSION["reg_lName"];
+        echo implode($errorArray);
     }
 ?>
 
@@ -86,8 +92,8 @@
             <input type="text" class="input inputLname" placeholder = "Enter name" name="lName" value="<?php echo isset($_POST['lName']) ? $lName : ''; ?>">
             <input type="text" class="input email" placeholder="Enter email" name="email" value="<?php echo isset($_POST['lName']) ? $email : ''; ?>">
             <input type="text" class="input email" placeholder="Enter email again" name="emailCheck" value="<?php echo isset($_POST['lName']) ? $chechEmail  : ''; ?>">
-            <input type="password" class="input password" placeholder="Password" name="pass" value="<?php echo isset($_POST['pass']) ? $pass : '' ?>">
-            <input type="password" class="input password" placeholder="Enter password again" name="passVerify" value="<?php echo isset($_POST['passVerify']) ? $passVerify : '' ?>">
+            <input type="password" class="input password" placeholder="Password" name="pass">
+            <input type="password" class="input password" placeholder="Enter password again" name="passVerify">
             <input type="submit" class="btn btnSubmit" name="submit">
         </form>
     </div>
