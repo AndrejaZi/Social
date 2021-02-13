@@ -61,3 +61,10 @@ form > input {
 .userNotification .notification #fail{
     background-color:var(--lightRed);
 }
+.error{
+    color:white;
+    background-color: #e74c3c;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 20px 0px 20px 0px;
+}

@@ -91,10 +91,13 @@
             <input type="text" class="input inputFname" placeholder = "Enter name" name="fName" value="<?php echo isset($_POST['fName']) ? $fName : ''; ?>">
             <input type="text" class="input inputLname" placeholder = "Enter name" name="lName" value="<?php echo isset($_POST['lName']) ? $lName : ''; ?>">
             <input type="text" class="input email" placeholder="Enter email" name="email" value="<?php echo isset($_POST['lName']) ? $email : ''; ?>">
-            <input type="text" class="input email" placeholder="Enter email again" name="emailCheck" value="<?php echo isset($_POST['lName']) ? $chechEmail  : ''; ?>">
+            <input type="text" class="input emailCheck" placeholder="Enter email again" name="emailCheck" value="<?php echo isset($_POST['lName']) ? $chechEmail  : ''; ?>">
             <input type="password" class="input password" placeholder="Password" name="pass">
-            <input type="password" class="input password" placeholder="Enter password again" name="passVerify">
+            <input type="password" class="input passwordCheck" placeholder="Enter password again" name="passVerify">
             <input type="submit" class="btn btnSubmit" name="submit">
+            <?php if(!empty($errorArray)){
+                echo "<p class='error'>." . implode($errorArray) . "</p>";
+            } ?>
         </form>
     </div>
     <script src="app.js"></script>
