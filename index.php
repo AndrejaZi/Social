@@ -30,7 +30,7 @@
         $registerSuccess;
         
         //echo $fName . " " . $lName . " " . $email . " " . $chechEmail . " " . $pass . " " . $passVerify . " " . $date;
-        //test
+        //test 12
         //to be used for user errors i.e. wrong password, email in use...
         $errorArray = array();
 
