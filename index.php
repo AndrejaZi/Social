@@ -31,6 +31,7 @@
         
         //echo $fName . " " . $lName . " " . $email . " " . $chechEmail . " " . $pass . " " . $passVerify . " " . $date;
         //test 122...ASAas
+        //test 2
         //to be used for user errors i.e. wrong password, email in use...
         $errorArray = array();
 
